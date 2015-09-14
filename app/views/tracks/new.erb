@@ -1,4 +1,4 @@
-<% if @tracks && @tracks.errors.any? %>
+<% if @tracks.errors.any? %>
   <div>
     <strong>Some issues with your track, please fix them:</strong>
     <ul>
@@ -12,15 +12,15 @@
 <form method="post" action="/tracks">
   <div>
     <label>Author:</label>
-    <input type="text" name="author">
+    <input type="text" name="author" value="<%= @tracks.author %>">
   </div>
   <div>
     <label>Title:</label>
-    <input type="text" name="title">
+    <input type="text" name="title" value="<%= @tracks.title %>">
   </div>
   <div>
     <label>Url:</label>
-    <input type="text" name="url">
+    <input type="text" name="url" value="<%= @tracks.url %>">
   </div>
   <div>
     <input type="submit" value="Submit">

@@ -4,6 +4,7 @@ get '/' do
 end
 
 get '/tracks/new' do
+  @tracks = Track.new
   erb :'tracks/new'
 end
 
