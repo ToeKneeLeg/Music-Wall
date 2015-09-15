@@ -16,8 +16,9 @@ get '/tracks/:id' do
 end
 
 get '/tracks' do
-  if session['user_id']
-    @current_user = User.find(session['user_id'])
+  if session['user']
+    # @current_user = User.find(session['user_id'])
+    # @current_user = session['user']
     @tracks = Track.all
     erb :'tracks/index'
   else 
@@ -76,18 +77,22 @@ post '/registration' do
 end
 
 post '/login' do
-  @user = User.new(
-    email: params[:email],
-    password: params[:password]
-    )
-  
-  email = @user.email
-  fetched_user = User.find_by(email: email)
-  if @user.try(:password) == fetched_user.try(:password)
-    session['user_id'] = fetched_user.id
+ 
+  @user = User.find_by(email: params[:email]).try(:authenticate, params[:password])
+
+  if @user
+    session['user'] = @user
     redirect '/tracks'
   else   
+    @user = User.new(email: params[:email])
     @did_not_match = true
     erb :'users/login'
   end
 end
+   # @user = User.new(
+  #   email: params[:email],
+  #   password: params[:password]
+  #   )  
+  # email = @user.email
+  # fetched_user = User.find_by(email: email)
+  # if @user.try(:password) == fetched_user.try(:password)
