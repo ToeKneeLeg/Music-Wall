@@ -8,6 +8,16 @@ get '/tracks/new' do
   erb :'tracks/new'
 end
 
+get '/users' do 
+  @user = User.new
+  erb :'users/login'
+end
+
+get '/users/registration' do
+  @user = User.new
+  erb :'users/registration'
+end
+
 get '/tracks/:id' do
   @tracks = Track.find params[:id]
   erb :'tracks/show'
@@ -28,5 +38,32 @@ post '/tracks' do
     redirect '/tracks'
   else
     erb :'tracks/new'
+  end
+end
+
+post '/registration' do
+  @user = User.new(
+    email: params[:email],
+    password: params[:password],
+    first_name: params[:first_name],
+    last_name: params[:last_name]
+    )
+  @user.save
+  redirect '/tracks'
+end
+
+post '/login' do
+  @user = User.new(
+    email: params[:email],
+    password: params[:password]
+    )
+  
+  email = @user.email
+  fetched_user = User.where(email: email)
+  if @user.password == fetched_user[0].password
+    redirect '/tracks'
+  else   
+    @did_not_match = true
+    erb :'users/login'
   end
 end

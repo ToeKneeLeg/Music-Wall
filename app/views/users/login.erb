@@ -1,0 +1,28 @@
+<div>
+  <h3>Sign in to check out our music wall!</h3>
+</div>
+
+<% if @did_not_match == true %>
+  <div>
+    <strong>Some issues with your user input, please fix them:</strong>    
+      <p>Your password did not match or was empty! Please try again!</p>
+  </div>
+<% end %>
+
+<form method="post" action="/login">
+  <div>
+    <label>Enter Username(Email):</label>
+    <input type="text" name="email" value="<%= @user.email %>">
+  </div> 
+  <div>
+    <label>Enter Password:</label>
+    <input type="password" name="password" size="25">
+  </div>
+  <div>
+    <input type="submit" value="Log In">
+  </div>
+</form>
+
+<div>
+  <p>If you haven't <a href="/users/registration">register</a> an account. Please do so in order to view our tracks.</p>
+</div>

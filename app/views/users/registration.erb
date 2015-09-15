@@ -1,0 +1,36 @@
+<h1>Music Wall Registration</h1>
+<h3>New users please register an account inorder to post your tracks onto the wall!</h3>
+
+<% if @user.errors.any? %>
+  <div>
+    <strong>Some issues with your user input, please fix them:</strong>
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
+<form method="post" action="/registration">
+  <div>
+    <label>Enter a Username(Email):</label>
+    <input type="text" name="email" value="<%= @user.email %>">
+  </div> 
+  <div>
+    <label>Enter a Password:</label>
+    <input type="password" name="password" size="25">
+  </div>
+  <div>
+    <label>Enter your First name:</label>
+    <input type="text" name="first_name">
+  </div>
+  <div>
+    <label>Enter your Last name:</label>
+    <input type="text" name="last_name">
+  </div>
+  <div>
+    <input type="submit" value="Create a new account">
+  </div>
+</form>
